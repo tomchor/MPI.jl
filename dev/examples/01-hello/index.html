@@ -6,6 +6,6 @@ MPI.Init()
 comm = MPI.COMM_WORLD
 print(&quot;Hello world, I am rank $(MPI.Comm_rank(comm)) of $(MPI.Comm_size(comm))\n&quot;)
 MPI.Barrier(comm)</code></pre><pre><code class="language-none">&gt; mpiexec -n 3 julia examples/01-hello.jl
-Hello world, I am rank 1 of 3
 Hello world, I am rank 2 of 3
-Hello world, I am rank 0 of 3</code></pre><footer><hr/><a class="previous" href="../../usage/"><span class="direction">Previous</span><span class="title">Usage</span></a><a class="next" href="../02-broadcast/"><span class="direction">Next</span><span class="title">Broadcast</span></a></footer></article></body></html>
+Hello world, I am rank 0 of 3
+Hello world, I am rank 1 of 3</code></pre><footer><hr/><a class="previous" href="../../usage/"><span class="direction">Previous</span><span class="title">Usage</span></a><a class="next" href="../02-broadcast/"><span class="direction">Next</span><span class="title">Broadcast</span></a></footer></article></body></html>
