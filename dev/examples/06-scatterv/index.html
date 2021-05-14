@@ -38,6 +38,7 @@ if rank == root
 
     # store sizes in 2 * comm_size Array
     sizes = vcat(M_counts&#39;, N_counts&#39;)
+    size_ubuf = UBuffer(sizes, 2)
 
     # store number of values to send to each rank in comm_size length Vector
     counts = vec(prod(sizes, dims=1))
@@ -46,7 +47,7 @@ if rank == root
     output_vbuf = VBuffer(output, counts) # VBuffer for gather
 else
     # these variables can be set to `nothing` on non-root processes
-    sizes = nothing
+    size_ubuf = UBuffer(nothing)
     output_vbuf = test_vbuf = VBuffer(nothing)
 end
 
@@ -60,8 +61,8 @@ if rank == root
 end 
 MPI.Barrier(comm)
 
-local_M, local_N = MPI.Scatter!(sizes, zeros(Int, 2), root, comm)
-local_test = MPI.Scatterv!(test_vbuf, zeros(Float64, local_M, local_N), root, comm)
+local_size = MPI.Scatter(size_ubuf, NTuple{2,Int}, root, comm)
+local_test = MPI.Scatterv!(test_vbuf, zeros(Float64, local_size), root, comm)
 
 for i = 0:comm_size-1
     if rank == i
@@ -95,4 +96,4 @@ local_test = [1.0 1.0; 2.0 2.0; 3.0 3.0; 4.0 4.0]
 
 Final matrix
 ================
-output = [1.0 1.0 1.0 1.0 1.0 1.0 1.0; 2.0 2.0 2.0 2.0 2.0 2.0 2.0; 3.0 3.0 3.0 3.0 3.0 3.0 3.0; 4.0 4.0 4.0 4.0 4.0 4.0 4.0]</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../05-job_schedule/">« Job Scheduling</a><a class="docs-footer-nextpage" href="../../library/">Library information »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 3 May 2021 04:26">Monday 3 May 2021</span>. Using Julia version 1.6.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+output = [1.0 1.0 1.0 1.0 1.0 1.0 1.0; 2.0 2.0 2.0 2.0 2.0 2.0 2.0; 3.0 3.0 3.0 3.0 3.0 3.0 3.0; 4.0 4.0 4.0 4.0 4.0 4.0 4.0]</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../05-job_schedule/">« Job Scheduling</a><a class="docs-footer-nextpage" href="../../library/">Library information »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 14 May 2021 17:41">Friday 14 May 2021</span>. Using Julia version 1.6.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
