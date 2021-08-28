@@ -206,3 +206,7 @@ import Base: @deprecate
 
 @deprecate(Accumulate(origin, rank, disp, op, win), Accumulate!(origin, rank, disp, op, win), false)
 @deprecate(Get_accumulate(origin, result, rank, disp, op, win), Get_accumulate!(origin, result, rank, disp, op, win), false)
+
+
+@deprecate(get_errorhandler(obj), get_errhandler(obj), false)
+@deprecate(set_errorhandler!(obj, errhandler), set_errhandler!(obj, errhandler), false)

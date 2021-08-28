@@ -37,7 +37,7 @@ MPI.infoval
 
 ```@docs
 MPI.ErrorHandler
-MPI.get_errorhandler
-MPI.set_errorhandler!
+MPI.get_errhandler
+MPI.set_errhandler!
 ```
 
